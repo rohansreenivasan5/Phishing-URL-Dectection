@@ -120,7 +120,7 @@ def web_traffic(url):
             "xml",
         ).find("REACH")["RANK"]
         rank = int(rank)
-    except TypeError:
+    except Exception as e:
         return 1
     if rank < 100000:
         return 1

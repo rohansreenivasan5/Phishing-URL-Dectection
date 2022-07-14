@@ -6,11 +6,11 @@ data0.head()
 features = []
 label = 0
 
-for i in range(0, 1000):
+for i in range(0, 100):
     url = data0["URL"][i]
     modified = url[:-3]
     print(modified)
-    features.append(featureExtraction(modified, label))
+    features.append(featureExtraction(modified, data0["Label"][i]))
 
 feature_names = [
     "Domain",
