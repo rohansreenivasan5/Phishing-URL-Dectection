@@ -6,7 +6,7 @@ data0.head()
 features = []
 label = 0
 
-for i in range(0, 100):
+for i in range(0, 1000):
     url = data0["URL"][i]
     modified = url[:-3]
     print(modified)
