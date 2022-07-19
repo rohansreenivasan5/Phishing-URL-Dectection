@@ -55,3 +55,17 @@ acc_test_tree = accuracy_score(y_test, y_test_tree)
 
 print("Decision Tree: Accuracy on training Data: {:.3f}".format(acc_train_tree))
 print("Decision Tree: Accuracy on test Data: {:.3f}".format(acc_test_tree))
+
+from sklearn.linear_model import Lasso
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
+
+model_lasso = Lasso(alpha=0.01)
+model_lasso.fit(X_train, y_train) 
+pred_train_lasso= model_lasso.predict(X_train)
+print(np.sqrt(mean_squared_error(y_train,pred_train_lasso)))
+print(r2_score(y_train, pred_train_lasso))
+
+pred_test_lasso= model_lasso.predict(X_test)
+print(np.sqrt(mean_squared_error(y_test,pred_test_lasso))) 
+print(r2_score(y_test, pred_test_lasso))

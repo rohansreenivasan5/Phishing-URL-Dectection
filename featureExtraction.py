@@ -128,50 +128,9 @@ def web_traffic(url):
     else:
         return 0
 
-#REMOVE
-# 13.Survival time of domain: The difference between termination time and creation time (Domain_Age)
-def domainAge(domain_name):
-    creation_date = domain_name.creation_date
-    expiration_date = domain_name.expiration_date
-    if isinstance(creation_date, str) or isinstance(expiration_date, str):
-        try:
-            creation_date = datetime.strptime(creation_date, "%Y-%m-%d")
-            expiration_date = datetime.strptime(expiration_date, "%Y-%m-%d")
-        except:
-            return 1
-    if (expiration_date is None) or (creation_date is None):
-        return 1
-    elif (type(expiration_date) is list) or (type(creation_date) is list):
-        return 1
-    else:
-        ageofdomain = abs((expiration_date - creation_date).days)
-        if (ageofdomain / 30) < 6:
-            age = 1
-        else:
-            age = 0
-    return age
 
 #REMOVE
 # 14.End time of domain: The difference between termination time and current time (Domain_End)
-def domainEnd(domain_name):
-    expiration_date = domain_name.expiration_date
-    if isinstance(expiration_date, str):
-        try:
-            expiration_date = datetime.strptime(expiration_date, "%Y-%m-%d")
-        except:
-            return 1
-    if expiration_date is None:
-        return 1
-    elif type(expiration_date) is list:
-        return 1
-    else:
-        today = datetime.now()
-        end = abs((expiration_date - today).days)
-        if (end / 30) < 6:
-            end = 0
-        else:
-            end = 1
-    return end
 
 
 # importing required packages for this section
@@ -220,9 +179,30 @@ def forwarding(response):
         else:
             return 1
 
+def create_age_check(num):
+    if num <= 12:
+        return 1
+    
+    else:
+        return 0
+
+def expiry_age_check(num):
+    if num <= 3:
+        return 1
+    
+    else:
+        return 0
+
+def update_age_check(num):
+    if num >= 1000:
+        return 1
+    
+    else:
+        return 0
+
 
 # Function to extract features
-def featureExtraction(url, label):
+def featureExtraction(url, label, create_age, expiry_age, update_age):
 
     features = []
     # Address bar based features (10)
@@ -245,8 +225,9 @@ def featureExtraction(url, label):
 
     features.append(dns)
     features.append(web_traffic(url))
-    features.append(1 if dns == 1 else domainAge(domain_name))
-    features.append(1 if dns == 1 else domainEnd(domain_name))
+    features.append(create_age_check(create_age))
+    features.append(expiry_age_check(expiry_age))
+    features.append(update_age_check(update_age))
 
     # HTML & Javascript based features (4)
     try:
