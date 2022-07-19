@@ -3,6 +3,7 @@ from urllib.parse import urlparse, urlencode
 import ipaddress
 import re
 
+#maybe remove if takes too long
 # 1.Domain of the URL (Domain)
 def getDomain(url):
     domain = urlparse(url).netloc
@@ -11,7 +12,7 @@ def getDomain(url):
 
     return domain
 
-
+#redundent 
 # 2.Checks for IP address in URL (Have_IP)
 def havingIP(url):
     try:
@@ -127,7 +128,7 @@ def web_traffic(url):
     else:
         return 0
 
-
+#REMOVE
 # 13.Survival time of domain: The difference between termination time and creation time (Domain_Age)
 def domainAge(domain_name):
     creation_date = domain_name.creation_date
@@ -150,7 +151,7 @@ def domainAge(domain_name):
             age = 0
     return age
 
-
+#REMOVE
 # 14.End time of domain: The difference between termination time and current time (Domain_End)
 def domainEnd(domain_name):
     expiration_date = domain_name.expiration_date
@@ -186,9 +187,8 @@ def iframe(response):
         else:
             return 1
 
-            # 16.Checks the effect of mouse over on status bar (Mouse_Over)
-
-
+#remove
+# 16.Checks the effect of mouse over on status bar (Mouse_Over)
 def mouseOver(response):
     if response == "":
         return 1
