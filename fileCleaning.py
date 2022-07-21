@@ -6,15 +6,15 @@ data0.head()
 features = []
 label = 0
 
-for i in range(0, 1000):
+for i in range(0, 350):
     url = data0["URL"][i]
     modified = url[:-3]
     print(modified)
     features.append(featureExtraction(modified, data0["Label"][i],data0["create_age(months)"][i],data0["expiry_age(months)"][i],data0["update_age(days)"][i]))
     
-feature_names = ['Domain', 'Have_IP', 'Have_At', 'URL_Length', 'URL_Depth','Redirection', 
-                      'https_Domain', 'TinyURL', 'Prefix/Suffix', 'DNS_Record', 'Web_Traffic', 
-                      'Domain_Age', 'Domain_End','Update_Age', 'iFrame', 'Mouse_Over','Right_Click', 'Web_Forwards', 'Label']
+feature_names = [ 'Have_At', 'URL_Length', 'URL_Depth','Redirection', 
+                      'https_Domain', 'TinyURL', 'Prefix/Suffix',  
+                      'Domain_Age', 'Domain_End','Update_Age', 'Exact Length', 'Zero Count', 'Zero Prop', 'Period Count', 'Period Prop', 'Special Count', 'Special Prop', 'Label']
 
 featList = pd.DataFrame(features, columns=feature_names)
 featList.head()

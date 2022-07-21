@@ -7,11 +7,12 @@ df=pd.read_csv("res.csv")
 df.head()
 
 df.describe()
-df = df.drop(["Domain"], axis=1).copy()
+
 df.head()
-cols = ['Have_IP', 'Have_At', 'URL_Length', 'URL_Depth','Redirection', 
-                      'https_Domain', 'TinyURL', 'Prefix/Suffix', 'DNS_Record', 'Web_Traffic', 
-                      'Domain_Age', 'Domain_End','Update_Age', 'iFrame', 'Mouse_Over','Right_Click', 'Web_Forwards', 'Label']
+cols = [ 'Have_At', 'URL_Length', 'URL_Depth','Redirection', 
+                      'https_Domain', 'TinyURL', 'Prefix/Suffix',  
+                      'Domain_Age', 'Domain_End','Update_Age', 'Exact Length', 'Zero Count', 'Zero Prop', 'Period Count', 'Period Prop', 'Special Count', 'Special Prop', 'Label']
+
 
 
 

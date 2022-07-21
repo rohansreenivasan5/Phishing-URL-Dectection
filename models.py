@@ -9,8 +9,8 @@ data0.head()
 
 data0.describe()
 # Dropping the Domain column
-data = data0.drop(["Domain"], axis=1).copy()
-#data = data.sample(frac=1).reset_index(drop=True)
+data = data0
+data = data.sample(frac=1).reset_index(drop=True)
 data.head()
 y = data["Label"]
 X = data.drop("Label", axis=1)

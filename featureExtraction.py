@@ -200,14 +200,116 @@ def update_age_check(num):
     else:
         return 0
 
+def exactLength(url):
+    length=len(url)
+    return length
+
+def zerocount(url):
+  num = url.count('0')
+  return num
+
+  #5.11 0 proportion
+def zeroprop(url):
+  num = url.count('0')
+  length = len(url)
+  prop = num/length
+  return prop
+
+#5.2 count periods
+def periodcount(url):
+  num = url.count('.')
+  return num
+
+#5.11 0 proportion
+def periodprop(url):
+  num = url.count('.')
+  length = len(url)
+  prop = num/length
+  return prop
+
+#5.2 count all special characters according to https://owasp.org/www-community/password-special-characters
+def specialcount(url):
+  num=0
+  num = num + url.count(' ')
+  num = num + url.count('!')
+  num = num + url.count('"')
+  num = num + url.count('#')
+  num = num + url.count('$')
+  num = num + url.count('%')
+  num = num + url.count('&')
+  num = num + url.count("'")
+  num = num + url.count('(')
+  num = num + url.count(')')
+  num = num + url.count('*')
+  num = num + url.count('+')
+  num = num + url.count(',')
+  num = num + url.count('-')
+  num = num + url.count('.')
+  num = num + url.count('/')
+  num = num + url.count(':')
+  num = num + url.count(';')
+  num = num + url.count('<')
+  num = num + url.count('=')
+  num = num + url.count('>')
+  num = num + url.count('?')
+  num = num + url.count('@')
+  num = num + url.count('[')
+  num = num + url.count(']')
+  num = num + url.count('^')
+  num = num + url.count('_')
+  num = num + url.count('`')
+  num = num + url.count('{')
+  num = num + url.count('|')
+  num = num + url.count('}')
+  num = num + url.count('~')
+  return num
+
+#prop special
+def specialprop(url):
+  num=0
+  num = num + url.count(' ')
+  num = num + url.count('!')
+  num = num + url.count('"')
+  num = num + url.count('#')
+  num = num + url.count('$')
+  num = num + url.count('%')
+  num = num + url.count('&')
+  num = num + url.count("'")
+  num = num + url.count('(')
+  num = num + url.count(')')
+  num = num + url.count('*')
+  num = num + url.count('+')
+  num = num + url.count(',')
+  num = num + url.count('-')
+  num = num + url.count('.')
+  num = num + url.count('/')
+  num = num + url.count(':')
+  num = num + url.count(';')
+  num = num + url.count('<')
+  num = num + url.count('=')
+  num = num + url.count('>')
+  num = num + url.count('?')
+  num = num + url.count('@')
+  num = num + url.count('[')
+  num = num + url.count(']')
+  num = num + url.count('^')
+  num = num + url.count('_')
+  num = num + url.count('`')
+  num = num + url.count('{')
+  num = num + url.count('|')
+  num = num + url.count('}')
+  num = num + url.count('~')
+  length=len(url)
+  prop=num/length
+  return prop
 
 # Function to extract features
 def featureExtraction(url, label, create_age, expiry_age, update_age):
 
     features = []
     # Address bar based features (10)
-    features.append(getDomain(url))
-    features.append(havingIP(url))
+    #features.append(getDomain(url))
+    #features.append(havingIP(url))
     features.append(haveAtSign(url))
     features.append(getLength(url))
     features.append(getDepth(url))
@@ -217,14 +319,14 @@ def featureExtraction(url, label, create_age, expiry_age, update_age):
     features.append(prefixSuffix(url))
 
     # Domain based features (4)
-    dns = 0
-    try:
-        domain_name = whois.whois(urlparse(url).netloc)
-    except:
-        dns = 1
+    # dns = 0
+    # try:
+    #     domain_name = whois.whois(urlparse(url).netloc)
+    # except:
+    #     dns = 1
 
-    features.append(dns)
-    features.append(web_traffic(url))
+    #features.append(dns)
+    #features.append(web_traffic(url))
     features.append(create_age_check(create_age))
     features.append(expiry_age_check(expiry_age))
     features.append(update_age_check(update_age))
@@ -234,10 +336,17 @@ def featureExtraction(url, label, create_age, expiry_age, update_age):
         response = requests.get(url)
     except:
         response = ""
-    features.append(iframe(response))
-    features.append(mouseOver(response))
-    features.append(rightClick(response))
-    features.append(forwarding(response))
+    # features.append(iframe(response))
+    # features.append(mouseOver(response))
+    # features.append(rightClick(response))
+    # features.append(forwarding(response))
+    features.append(exactLength(url))
+    features.append(zerocount(url))
+    features.append(zeroprop(url))
+    features.append(periodcount(url))
+    features.append(periodprop(url))
+    features.append(specialcount(url))
+    features.append(specialprop(url))
     features.append(label)
 
     return features
