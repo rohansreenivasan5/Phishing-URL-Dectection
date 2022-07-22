@@ -3,7 +3,7 @@ from urllib.parse import urlparse, urlencode
 import ipaddress
 import re
 
-#maybe remove if takes too long
+# maybe remove if takes too long
 # 1.Domain of the URL (Domain)
 def getDomain(url):
     domain = urlparse(url).netloc
@@ -12,7 +12,8 @@ def getDomain(url):
 
     return domain
 
-#redundent 
+
+# redundent
 # 2.Checks for IP address in URL (Have_IP)
 def havingIP(url):
     try:
@@ -86,11 +87,7 @@ shortening_services = (
 
 # 8. Checking for Shortening Services in URL (Tiny_URL)
 def tinyURL(url):
-    match = re.search(shortening_services, url)
-    if match:
-        return 1
-    else:
-        return 0
+    return re.search(shortening_services, url)
 
 
 # 9.Checking for Prefix or Suffix Separated by (-) in the Domain (Prefix/Suffix)
@@ -129,7 +126,7 @@ def web_traffic(url):
         return 0
 
 
-#REMOVE
+# REMOVE
 # 14.End time of domain: The difference between termination time and current time (Domain_End)
 
 
@@ -146,7 +143,8 @@ def iframe(response):
         else:
             return 1
 
-#remove
+
+# remove
 # 16.Checks the effect of mouse over on status bar (Mouse_Over)
 def mouseOver(response):
     if response == "":
@@ -179,174 +177,210 @@ def forwarding(response):
         else:
             return 1
 
+
 def create_age_check(num):
     if num <= 12:
         return 1
-    
+
     else:
         return 0
+
 
 def expiry_age_check(num):
     if num <= 3:
         return 1
-    
+
     else:
         return 0
+
 
 def update_age_check(num):
     if num >= 1000:
         return 1
-    
+
     else:
         return 0
 
+
 def exactLength(url):
-    length=len(url)
+    length = len(url)
     return length
 
+
 def zerocount(url):
-  num = url.count('0')
-  return num
+    num = url.count("0")
+    return num
 
-  #5.11 0 proportion
+    # 5.11 0 proportion
+
+
 def zeroprop(url):
-  num = url.count('0')
-  length = len(url)
-  prop = num/length
-  return prop
+    num = url.count("0")
+    length = len(url)
+    prop = num / length
+    return prop
 
-#5.2 count periods
+
+def slashcount(url):
+    num = url.count("/")
+    return num
+
+    # 5.11 0 proportion
+
+
+def slashprop(url):
+    num = url.count("/")
+    length = len(url)
+    prop = num / length
+    return prop
+
+
+def percentcount(url):
+    num = url.count("%")
+    return num
+
+    # 5.11 0 proportion
+
+
+def percentprop(url):
+    num = url.count("%")
+    length = len(url)
+    prop = num / length
+    return prop
+
+
+def lessthan(url):
+    num = url.count(">")
+    return num
+
+    # 5.11 0 proportion
+
+
+def greaterthan(url):
+    num = url.count("<")
+    return num
+
+
+# 5.2 count periods
 def periodcount(url):
-  num = url.count('.')
-  return num
+    num = url.count(".")
+    return num
 
-#5.11 0 proportion
+
+# 5.11 0 proportion
 def periodprop(url):
-  num = url.count('.')
-  length = len(url)
-  prop = num/length
-  return prop
+    num = url.count(".")
+    length = len(url)
+    prop = num / length
+    return prop
 
-#5.2 count all special characters according to https://owasp.org/www-community/password-special-characters
+
+# 5.2 count all special characters according to https://owasp.org/www-community/password-special-characters
 def specialcount(url):
-  num=0
-  num = num + url.count(' ')
-  num = num + url.count('!')
-  num = num + url.count('"')
-  num = num + url.count('#')
-  num = num + url.count('$')
-  num = num + url.count('%')
-  num = num + url.count('&')
-  num = num + url.count("'")
-  num = num + url.count('(')
-  num = num + url.count(')')
-  num = num + url.count('*')
-  num = num + url.count('+')
-  num = num + url.count(',')
-  num = num + url.count('-')
-  num = num + url.count('.')
-  num = num + url.count('/')
-  num = num + url.count(':')
-  num = num + url.count(';')
-  num = num + url.count('<')
-  num = num + url.count('=')
-  num = num + url.count('>')
-  num = num + url.count('?')
-  num = num + url.count('@')
-  num = num + url.count('[')
-  num = num + url.count(']')
-  num = num + url.count('^')
-  num = num + url.count('_')
-  num = num + url.count('`')
-  num = num + url.count('{')
-  num = num + url.count('|')
-  num = num + url.count('}')
-  num = num + url.count('~')
-  return num
+    num = 0
+    num = num + url.count(" ")
+    num = num + url.count("!")
+    num = num + url.count('"')
+    num = num + url.count("#")
+    num = num + url.count("$")
+    num = num + url.count("%")
+    num = num + url.count("&")
+    num = num + url.count("'")
+    num = num + url.count("(")
+    num = num + url.count(")")
+    num = num + url.count("*")
+    num = num + url.count("+")
+    num = num + url.count(",")
+    num = num + url.count("-")
+    num = num + url.count(".")
+    num = num + url.count("/")
+    num = num + url.count(":")
+    num = num + url.count(";")
+    num = num + url.count("<")
+    num = num + url.count("=")
+    num = num + url.count(">")
+    num = num + url.count("?")
+    num = num + url.count("@")
+    num = num + url.count("[")
+    num = num + url.count("]")
+    num = num + url.count("^")
+    num = num + url.count("_")
+    num = num + url.count("`")
+    num = num + url.count("{")
+    num = num + url.count("|")
+    num = num + url.count("}")
+    num = num + url.count("~")
+    return num
 
-#prop special
+
+# prop special
 def specialprop(url):
-  num=0
-  num = num + url.count(' ')
-  num = num + url.count('!')
-  num = num + url.count('"')
-  num = num + url.count('#')
-  num = num + url.count('$')
-  num = num + url.count('%')
-  num = num + url.count('&')
-  num = num + url.count("'")
-  num = num + url.count('(')
-  num = num + url.count(')')
-  num = num + url.count('*')
-  num = num + url.count('+')
-  num = num + url.count(',')
-  num = num + url.count('-')
-  num = num + url.count('.')
-  num = num + url.count('/')
-  num = num + url.count(':')
-  num = num + url.count(';')
-  num = num + url.count('<')
-  num = num + url.count('=')
-  num = num + url.count('>')
-  num = num + url.count('?')
-  num = num + url.count('@')
-  num = num + url.count('[')
-  num = num + url.count(']')
-  num = num + url.count('^')
-  num = num + url.count('_')
-  num = num + url.count('`')
-  num = num + url.count('{')
-  num = num + url.count('|')
-  num = num + url.count('}')
-  num = num + url.count('~')
-  length=len(url)
-  prop=num/length
-  return prop
+    num = 0
+    num = num + url.count(" ")
+    num = num + url.count("!")
+    num = num + url.count('"')
+    num = num + url.count("#")
+    num = num + url.count("$")
+    num = num + url.count("%")
+    num = num + url.count("&")
+    num = num + url.count("'")
+    num = num + url.count("(")
+    num = num + url.count(")")
+    num = num + url.count("*")
+    num = num + url.count("+")
+    num = num + url.count(",")
+    num = num + url.count("-")
+    num = num + url.count(".")
+    num = num + url.count("/")
+    num = num + url.count(":")
+    num = num + url.count(";")
+    num = num + url.count("<")
+    num = num + url.count("=")
+    num = num + url.count(">")
+    num = num + url.count("?")
+    num = num + url.count("@")
+    num = num + url.count("[")
+    num = num + url.count("]")
+    num = num + url.count("^")
+    num = num + url.count("_")
+    num = num + url.count("`")
+    num = num + url.count("{")
+    num = num + url.count("|")
+    num = num + url.count("}")
+    num = num + url.count("~")
+    length = len(url)
+    prop = num / length
+    return prop
+
+
+def check_words(url):
+    num = 0
+    num = num + url.count("login")
+    num = num + url.count("LOGIN")
+    num = num + url.count("Login")
+    num = num + url.count("registered")
+    num = num + url.count("Registered")
+    num = num + url.count("Registered")
+    return num
+
 
 # Function to extract features
 def featureExtraction(url, label, create_age, expiry_age, update_age):
 
     features = []
-    # Address bar based features (10)
-    #features.append(getDomain(url))
-    #features.append(havingIP(url))
-    features.append(haveAtSign(url))
     features.append(getLength(url))
     features.append(getDepth(url))
-    features.append(redirection(url))
-    features.append(httpDomain(url))
-    features.append(tinyURL(url))
-    features.append(prefixSuffix(url))
-
-    # Domain based features (4)
-    # dns = 0
-    # try:
-    #     domain_name = whois.whois(urlparse(url).netloc)
-    # except:
-    #     dns = 1
-
-    #features.append(dns)
-    #features.append(web_traffic(url))
     features.append(create_age_check(create_age))
     features.append(expiry_age_check(expiry_age))
     features.append(update_age_check(update_age))
-
-    # HTML & Javascript based features (4)
-    try:
-        response = requests.get(url)
-    except:
-        response = ""
-    # features.append(iframe(response))
-    # features.append(mouseOver(response))
-    # features.append(rightClick(response))
-    # features.append(forwarding(response))
     features.append(exactLength(url))
     features.append(zerocount(url))
     features.append(zeroprop(url))
-    features.append(periodcount(url))
     features.append(periodprop(url))
     features.append(specialcount(url))
     features.append(specialprop(url))
+    features.append(slashcount(url))
+    features.append(slashprop(url))
     features.append(label)
 
     return features
