@@ -161,6 +161,7 @@ print("SVM : Accuracy on test Data: {:.3f}".format(acc_test_svm))
 # Caution: Execute only once to avoid duplications.
 storeResults("SVM", acc_train_svm, acc_test_svm)
 
+
 # creating dataframe
 results = pd.DataFrame(
     {"ML Model": ML_Model, "Train Accuracy": acc_train, "Test Accuracy": acc_test}
@@ -169,5 +170,3 @@ results
 
 # Sorting the datafram on accuracy
 results.sort_values(by=["Test Accuracy", "Train Accuracy"], ascending=False)
-
-print(cm)

@@ -61,8 +61,8 @@ from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_test_xgb)
 
 df = pd.DataFrame()
-df["actual"] = y_train
-df["predicted"] = y_train_xgb
+df["actual"] = y_test
+df["predicted"] = y_test_xgb
 incorrect = df[df["actual"] != df["predicted"]]
 
 print("XGBoost: Accuracy on training Data: {:.3f}".format(acc_train_xgb))
