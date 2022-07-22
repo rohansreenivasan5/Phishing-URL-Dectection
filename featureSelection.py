@@ -23,6 +23,7 @@ cols = [
     "Special Prop",
     "Slash Count",
     "Slash Prop",
+    "Check Words",
     "Label",
 ]
 
@@ -30,7 +31,7 @@ cols = [
 from sklearn.preprocessing import StandardScaler
 
 stdsc = StandardScaler()
-X_std = stdsc.fit_transform(df[cols].iloc[:, range(0, 14)].values)
+X_std = stdsc.fit_transform(df[cols].iloc[:, range(0, 15)].values)
 cov_mat = np.cov(X_std.T)
 plt.figure(figsize=(10, 10))
 sns.set(font_scale=1.5)

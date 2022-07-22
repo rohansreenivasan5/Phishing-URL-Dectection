@@ -123,6 +123,12 @@ y_train_xgb = xgb.predict(X_train)
 acc_train_xgb = accuracy_score(y_train, y_train_xgb)
 acc_test_xgb = accuracy_score(y_test, y_test_xgb)
 
+
+from sklearn.metrics import confusion_matrix
+
+cm = confusion_matrix(y_test, y_test_xgb)
+
+
 print("XGBoost: Accuracy on training Data: {:.3f}".format(acc_train_xgb))
 print("XGBoost : Accuracy on test Data: {:.3f}".format(acc_test_xgb))
 
@@ -163,3 +169,5 @@ results
 
 # Sorting the datafram on accuracy
 results.sort_values(by=["Test Accuracy", "Train Accuracy"], ascending=False)
+
+print(cm)

@@ -64,7 +64,7 @@ def redirection(url):
         return 0
 
 
-# 7.Existence of “HTTPS” Token in the Domain Part of the URL (https_Domain)
+# 7.Existence of "HTTPS" Token in the Domain Part of the URL (https_Domain)
 def httpDomain(url):
     domain = urlparse(url).netloc
     if "https" in domain:
@@ -74,20 +74,151 @@ def httpDomain(url):
 
 
 # listing shortening services
-shortening_services = (
-    r"bit\.ly|goo\.gl|shorte\.st|go2l\.ink|x\.co|ow\.ly|t\.co|tinyurl|tr\.im|is\.gd|cli\.gs|"
-    r"yfrog\.com|migre\.me|ff\.im|tiny\.cc|url4\.eu|twit\.ac|su\.pr|twurl\.nl|snipurl\.com|"
-    r"short\.to|BudURL\.com|ping\.fm|post\.ly|Just\.as|bkite\.com|snipr\.com|fic\.kr|loopt\.us|"
-    r"doiop\.com|short\.ie|kl\.am|wp\.me|rubyurl\.com|om\.ly|to\.ly|bit\.do|t\.co|lnkd\.in|db\.tt|"
-    r"qr\.ae|adf\.ly|goo\.gl|bitly\.com|cur\.lv|tinyurl\.com|ow\.ly|bit\.ly|ity\.im|q\.gs|is\.gd|"
-    r"po\.st|bc\.vc|twitthis\.com|u\.to|j\.mp|buzurl\.com|cutt\.us|u\.bb|yourls\.org|x\.co|"
-    r"prettylinkpro\.com|scrnch\.me|filoops\.info|vzturl\.com|qr\.net|1url\.com|tweez\.me|v\.gd|"
-    r"tr\.im|link\.zip\.net"
-)
 
-# 8. Checking for Shortening Services in URL (Tiny_URL)
-def tinyURL(url):
-    return re.search(shortening_services, url)
+
+strs = [
+    "bit",
+    ".ly",
+    "goo",
+    ".gl",
+    "shorte",
+    ".st",
+    "go2l",
+    ".ink",
+    "x",
+    ".co",
+    "ow",
+    ".ly",
+    "t",
+    ".co",
+    "tinyurl",
+    "tr",
+    ".im",
+    "is",
+    ".gd",
+    "cli",
+    ".gs",
+    "yfrog",
+    ".com",
+    "migre",
+    ".me",
+    "ff",
+    ".im",
+    "tiny",
+    ".cc",
+    "url4",
+    ".eu",
+    "twit",
+    ".ac",
+    "su",
+    ".pr",
+    "twurl",
+    ".nl",
+    "snipurl",
+    ".com",
+    "short",
+    ".to",
+    "BudURL",
+    ".com",
+    "ping",
+    ".fm",
+    "post",
+    ".ly",
+    "Just",
+    ".as",
+    "bkite",
+    ".com",
+    "snipr",
+    ".com",
+    "fic",
+    ".kr",
+    "loopt",
+    ".us",
+    "doiop",
+    ".com",
+    "short",
+    ".ie",
+    "kl",
+    ".am",
+    "wp",
+    ".me",
+    "rubyurl",
+    ".com",
+    "om",
+    ".ly",
+    "to",
+    ".ly",
+    "bit",
+    ".do",
+    "t",
+    ".co",
+    "lnkd",
+    ".in",
+    "db",
+    ".tt",
+    "qr",
+    ".ae",
+    "adf",
+    ".ly",
+    "goo",
+    ".gl",
+    "bitly",
+    ".com",
+    "cur",
+    ".lv",
+    "tinyurl",
+    ".com",
+    "ow",
+    ".ly",
+    "bit",
+    ".ly",
+    "ity",
+    ".im",
+    "q",
+    ".gs",
+    "is",
+    ".gd",
+    "po",
+    ".st",
+    "bc",
+    ".vc",
+    "twitthis",
+    ".com",
+    "u",
+    ".to",
+    "j",
+    ".mp",
+    "buzurl",
+    ".com",
+    "cutt",
+    ".us",
+    "u",
+    ".bb",
+    "yourls",
+    ".org",
+    "x",
+    ".co",
+    "prettylinkpro",
+    ".com",
+    "scrnch",
+    ".me",
+    "filoops",
+    ".info",
+    "vzturl",
+    ".com",
+    "qr",
+    ".net",
+    ".com",
+    "tweez",
+    ".me",
+    "v",
+    ".gd",
+    "tr",
+    ".im",
+    "link",
+    ".zip",
+    ".net",
+]
 
 
 # 9.Checking for Prefix or Suffix Separated by (-) in the Domain (Prefix/Suffix)
@@ -355,12 +486,8 @@ def specialprop(url):
 
 def check_words(url):
     num = 0
-    num = num + url.count("login")
-    num = num + url.count("LOGIN")
-    num = num + url.count("Login")
-    num = num + url.count("registered")
-    num = num + url.count("Registered")
-    num = num + url.count("Registered")
+    for str in strs:
+        num = num + url.count(str)
     return num
 
 
@@ -381,6 +508,7 @@ def featureExtraction(url, label, create_age, expiry_age, update_age):
     features.append(specialprop(url))
     features.append(slashcount(url))
     features.append(slashprop(url))
+    features.append(check_words(url))
     features.append(label)
 
     return features

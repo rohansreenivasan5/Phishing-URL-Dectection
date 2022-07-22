@@ -34,6 +34,7 @@ feature_names = [
     "Special Prop",
     "Slash Count",
     "Slash Prop",
+    "Check Words",
     "Label",
 ]
 
