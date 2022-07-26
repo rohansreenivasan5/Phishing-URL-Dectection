@@ -8,26 +8,39 @@ data0 = pd.read_csv("res.csv")
 data0.head()
 df_train = data0.sample(frac=0.8, random_state=1)
 df_test=data0.drop(df_train.index)
-mean= df_train["URL_Depth"].mean()
-standard_dev=df_train["URL_Depth"].std()
-df_train["URL_Depth"] = (df_train["URL_Depth"] - df_train["URL_Depth"].mean()) / df_train["URL_Depth"].std()
-df_test["URL_Depth"] = (df_test["URL_Depth"] - mean) / standard_dev   
-#print(df_test["URL_Depth"])
+feature_names = [
+    "URL_Depth", #normalize
+    "Domain_Age",#n
+    "Domain_End",#n
+    "Update_Age",#n
+    "Exact Length",#n
+    "Zero Count",#n
+    "Zero Prop",#n
+    "Period Prop",#n
+    "Special Count",#n
+    "Special Prop",#n
+    "Slash Count",#n
+    "Slash Prop",#n
+    "Check Words",#n
+]
+for column in feature_names:
+    mean= df_train[column].mean()
+    standard_dev=df_train[column].std()
+    df_train[column] = (df_train[column] - df_train[column].mean()) / df_train[column].std()
+    df_test[column] = (df_test[column] - mean) / standard_dev
+
 data0.describe()
 # Dropping the Domain column
 data = data0
 # data = data.sample(frac=1).reset_index(drop=True)
 data.head()
 y = data["Label"]
-X = data.drop("Label", axis=1)
-X.shape, y.shape
-# Splitting the dataset into train and test sets: 80-20 split
-from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=12
-)
-X_train.shape, X_test.shape
+y_train = df_train["Label"]
+y_test = df_test["Label"]
+
+X_train = df_train.drop("Label", axis=1)
+X_test = df_test.drop("Label", axis=1)
 
 from sklearn.metrics import accuracy_score
 

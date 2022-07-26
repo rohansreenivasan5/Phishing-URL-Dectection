@@ -22,19 +22,19 @@ for i in range(0, 4799):
 
 feature_names = [
     "URL_Length",
-    "URL_Depth",
-    "Domain_Age",
-    "Domain_End",
-    "Update_Age",
-    "Exact Length",
-    "Zero Count",
-    "Zero Prop",
-    "Period Prop",
-    "Special Count",
-    "Special Prop",
-    "Slash Count",
-    "Slash Prop",
-    "Check Words",
+    "URL_Depth", #normalize
+    "Domain_Age",#n
+    "Domain_End",#n
+    "Update_Age",#n
+    "Exact Length",#n
+    "Zero Count",#n
+    "Zero Prop",#n
+    "Period Prop",#n
+    "Special Count",#n
+    "Special Prop",#n
+    "Slash Count",#n
+    "Slash Prop",#n
+    "Check Words",#n
     "Label",
 ]
 
