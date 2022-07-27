@@ -7,12 +7,14 @@ import matplotlib.pyplot as plt
 data0 = pd.read_csv("res.csv")
 data0.head()
 df_train = data0.sample(frac=0.8, random_state=1)
-df_test=data0.drop(df_train.index)
-mean= df_train["URL_Depth"].mean()
-standard_dev=df_train["URL_Depth"].std()
-df_train["URL_Depth"] = (df_train["URL_Depth"] - df_train["URL_Depth"].mean()) / df_train["URL_Depth"].std()
-df_test["URL_Depth"] = (df_test["URL_Depth"] - mean) / standard_dev   
-#print(df_test["URL_Depth"])
+df_test = data0.drop(df_train.index)
+mean = df_train["URL_Depth"].mean()
+standard_dev = df_train["URL_Depth"].std()
+df_train["URL_Depth"] = (
+    df_train["URL_Depth"] - df_train["URL_Depth"].mean()
+) / df_train["URL_Depth"].std()
+df_test["URL_Depth"] = (df_test["URL_Depth"] - mean) / standard_dev
+# print(df_test["URL_Depth"])
 data0.describe()
 # Dropping the Domain column
 data = data0
@@ -114,33 +116,33 @@ print("Multilayer Perceptrons: Accuracy on test Data: {:.3f}".format(acc_test_ml
 storeResults("Multilayer Perceptrons", acc_train_mlp, acc_test_mlp)
 
 # XGBoost Classification model
-# from xgboost import XGBClassifier
+from xgboost import XGBClassifier
 
-# # instantiate the model
-# xgb = XGBClassifier(learning_rate=0.4, max_depth=7)
-# # fit the model
-# xgb.fit(X_train, y_train)
+# instantiate the model
+xgb = XGBClassifier(learning_rate=0.4, max_depth=7)
+# fit the model
+xgb.fit(X_train, y_train)
 
-# # predicting the target value from the model for the samples
-# y_test_xgb = xgb.predict(X_test)
-# y_train_xgb = xgb.predict(X_train)
+# predicting the target value from the model for the samples
+y_test_xgb = xgb.predict(X_test)
+y_train_xgb = xgb.predict(X_train)
 
-# # computing the accuracy of the model performance
-# acc_train_xgb = accuracy_score(y_train, y_train_xgb)
-# acc_test_xgb = accuracy_score(y_test, y_test_xgb)
-
-
-# from sklearn.metrics import confusion_matrix
-
-# cm = confusion_matrix(y_test, y_test_xgb)
+# computing the accuracy of the model performance
+acc_train_xgb = accuracy_score(y_train, y_train_xgb)
+acc_test_xgb = accuracy_score(y_test, y_test_xgb)
 
 
-# print("XGBoost: Accuracy on training Data: {:.3f}".format(acc_train_xgb))
-# print("XGBoost : Accuracy on test Data: {:.3f}".format(acc_test_xgb))
+from sklearn.metrics import confusion_matrix
 
-# # storing the results. The below mentioned order of parameter passing is important.
-# # Caution: Execute only once to avoid duplications.
-# storeResults("XGBoost", acc_train_xgb, acc_test_xgb)
+cm = confusion_matrix(y_test, y_test_xgb)
+
+
+print("XGBoost: Accuracy on training Data: {:.3f}".format(acc_train_xgb))
+print("XGBoost : Accuracy on test Data: {:.3f}".format(acc_test_xgb))
+
+# storing the results. The below mentioned order of parameter passing is important.
+# Caution: Execute only once to avoid duplications.
+storeResults("XGBoost", acc_train_xgb, acc_test_xgb)
 
 
 # Support vector machine model

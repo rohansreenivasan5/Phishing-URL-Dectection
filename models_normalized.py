@@ -7,26 +7,28 @@ import matplotlib.pyplot as plt
 data0 = pd.read_csv("res.csv")
 data0.head()
 df_train = data0.sample(frac=0.8, random_state=1)
-df_test=data0.drop(df_train.index)
+df_test = data0.drop(df_train.index)
 feature_names = [
-    "URL_Depth", #normalize
-    "Domain_Age",#n
-    "Domain_End",#n
-    "Update_Age",#n
-    "Exact Length",#n
-    "Zero Count",#n
-    "Zero Prop",#n
-    "Period Prop",#n
-    "Special Count",#n
-    "Special Prop",#n
-    "Slash Count",#n
-    "Slash Prop",#n
-    "Check Words",#n
+    "URL_Depth",  # normalize
+    "Domain_Age",  # n
+    "Domain_End",  # n
+    "Update_Age",  # n
+    "Exact Length",  # n
+    "Zero Count",  # n
+    "Zero Prop",  # n
+    "Period Prop",  # n
+    "Special Count",  # n
+    "Special Prop",  # n
+    "Slash Count",  # n
+    "Slash Prop",  # n
+    "Check Words",  # n
 ]
 for column in feature_names:
-    mean= df_train[column].mean()
-    standard_dev=df_train[column].std()
-    df_train[column] = (df_train[column] - df_train[column].mean()) / df_train[column].std()
+    mean = df_train[column].mean()
+    standard_dev = df_train[column].std()
+    df_train[column] = (df_train[column] - df_train[column].mean()) / df_train[
+        column
+    ].std()
     df_test[column] = (df_test[column] - mean) / standard_dev
 
 data0.describe()
@@ -180,6 +182,34 @@ print("SVM : Accuracy on test Data: {:.3f}".format(acc_test_svm))
 # Caution: Execute only once to avoid duplications.
 storeResults("SVM", acc_train_svm, acc_test_svm)
 
+# XGBoost Classification model
+from xgboost import XGBClassifier
+
+# instantiate the model
+xgb = XGBClassifier(learning_rate=0.4, max_depth=7)
+# fit the model
+xgb.fit(X_train, y_train)
+
+# predicting the target value from the model for the samples
+y_test_xgb = xgb.predict(X_test)
+y_train_xgb = xgb.predict(X_train)
+
+# computing the accuracy of the model performance
+acc_train_xgb = accuracy_score(y_train, y_train_xgb)
+acc_test_xgb = accuracy_score(y_test, y_test_xgb)
+
+
+from sklearn.metrics import confusion_matrix
+
+cm = confusion_matrix(y_test, y_test_xgb)
+
+
+print("XGBoost: Accuracy on training Data: {:.3f}".format(acc_train_xgb))
+print("XGBoost : Accuracy on test Data: {:.3f}".format(acc_test_xgb))
+
+# storing the results. The below mentioned order of parameter passing is important.
+# Caution: Execute only once to avoid duplications.
+storeResults("XGBoost", acc_train_xgb, acc_test_xgb)
 
 # creating dataframe
 results = pd.DataFrame(
